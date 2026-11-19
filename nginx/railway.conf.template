@@ -2,7 +2,7 @@
 resolver ${NGINX_LOCAL_RESOLVERS} valid=10s;
 set $misp_core "${FASTCGI_LISTEN}";
 
-location = /railway-health {
+location = /healthz {
     access_log off;
     default_type text/plain;
     return 200 "ok\n";

@@ -8,7 +8,7 @@ USER root
 # Railway changes to upstream's nginx template:
 # - look up misp-core on every request through the private-network resolver
 #   (nginx would otherwise keep the first IP, and break after misp-core redeploys);
-# - answer /railway-health without MISP, for Railway's health check;
+# - answer /healthz without MISP, for Railway's health check;
 # - show a "starting" page instead of a bare 502 while misp-core runs its first setup.
 # The grep checks make a version bump fail loudly if upstream changes these lines.
 RUN set -e; f=/etc/nginx/templates/misp.conf.template; \
