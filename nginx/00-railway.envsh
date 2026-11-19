@@ -1,3 +1,10 @@
 #!/usr/bin/env sh
 # Railway: listen on PORT (Railway's health check and public domain use it).
 export NGINX_INTERNAL_HTTP_PORT="${PORT:-8080}"
+
+# Upstream's image deletes nginx's stock default.conf in a layer, but on Railway
+# that file still shows up and its server block (port 8080) answers before
+# MISP's. Remove it at start so only the MISP server block is loaded.
+if [ -e /etc/nginx/conf.d/default.conf ]; then
+    rm /etc/nginx/conf.d/default.conf
+fi
