@@ -4,7 +4,7 @@ MISP is an open-source threat intelligence platform for collecting, storing, cor
 
 ## About Hosting MISP
 
-MISP needs several parts working together: a PHP-FPM application with background workers, a web server, a MariaDB database, Redis for sessions and job queues, and the misp-modules service for enrichment, import and export. This template deploys all of them as separate Railway services built from the official MISP Docker images, wired over Railway's private network. The first start creates the database schema, the admin account, a GPG key and downloads galaxies, taxonomies and warning lists, which takes a few minutes. Config, uploaded files and the GPG key live on a volume, and the database on its own volume, so they survive redeploys.
+MISP needs several parts working together: a PHP-FPM application with background workers, a web server, a MariaDB database, Redis for sessions and job queues, and the misp-modules service for enrichment, import and export. This template deploys all of them as separate Railway services built from the official MISP Docker images, wired over Railway's private network. The first start creates the database schema, the admin account, a GPG key and downloads galaxies, taxonomies and warning lists, which takes 5 to 10 minutes. Config, uploaded files and the GPG key live on a volume, and the database on its own volume, so they survive redeploys.
 
 ## Common Use Cases
 
@@ -38,7 +38,7 @@ The only value you enter is `ADMIN_EMAIL`, the login of the first admin. The adm
 
 After deploy:
 
-1. Wait for misp-core's first start to finish (about 3-5 minutes). Until then the public URL shows "MISP is starting".
+1. Wait for misp-core's first start to finish (about 5-10 minutes). Until then the public URL shows "MISP is starting".
 2. Open the MISP service's public URL and sign in with `ADMIN_EMAIL` and the generated `ADMIN_PASSWORD` (misp-core service, Variables tab).
 3. Under Administration, set your organisation name, then enable the feeds you want under Sync Actions, List Feeds.
 

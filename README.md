@@ -32,7 +32,7 @@ Optional misp-core settings follow upstream's [template.env](https://github.com/
 
 ## First start
 
-misp-core's first start takes about 3-5 minutes: it loads the schema, creates the admin, generates a GPG key and imports galaxies, taxonomies and warning lists. Until it's done, the public URL shows a "MISP is starting" page. Then sign in with `ADMIN_EMAIL` and `ADMIN_PASSWORD`.
+misp-core's first start takes about 5-10 minutes: it loads the schema, creates the admin, generates a GPG key and imports galaxies, taxonomies and warning lists. Until it's done, the public URL shows a "MISP is starting" page. Then sign in with `ADMIN_EMAIL` and `ADMIN_PASSWORD`.
 
 ## What the wrapper changes
 
