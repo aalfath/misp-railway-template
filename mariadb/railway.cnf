@@ -1,0 +1,18 @@
+# Railway wrapper settings, loaded after the image's defaults.
+[mariadbd]
+# Keep the data in a subfolder of the volume (mounted at /var/lib/mysql),
+# so the volume's lost+found folder never shows up as a database.
+datadir = /var/lib/mysql/data
+# Connections come from Railway's private network: don't resolve client host names.
+skip-name-resolve
+# MISP's recommended InnoDB settings (MISP/misp-docker docker-compose.yml),
+# with a smaller buffer pool so the database fits a small Railway plan.
+# Raise innodb_buffer_pool_size for large instances.
+innodb_buffer_pool_size = 512M
+innodb_change_buffering = none
+innodb_io_capacity = 1000
+innodb_io_capacity_max = 2000
+innodb_log_file_size = 600M
+innodb_read_io_threads = 16
+innodb_stats_persistent = ON
+innodb_write_io_threads = 4

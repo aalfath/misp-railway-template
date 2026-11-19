@@ -1,0 +1,16 @@
+# Included in the MISP server block (see Dockerfile).
+resolver ${NGINX_LOCAL_RESOLVERS} valid=10s;
+set $misp_core "${FASTCGI_LISTEN}";
+
+location = /railway-health {
+    access_log off;
+    default_type text/plain;
+    return 200 "ok\n";
+}
+
+error_page 502 503 504 /railway-starting.html;
+location = /railway-starting.html {
+    internal;
+    root /usr/share/nginx/railway;
+    try_files /starting.html =502;
+}
