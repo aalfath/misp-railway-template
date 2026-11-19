@@ -4,7 +4,11 @@
 set -euo pipefail
 
 DATA="${MISP_DATA_DIR:-/data}"
-mkdir -p "$DATA/config" "$DATA/files" "$DATA/gnupg"
+mkdir -p "$DATA/app/Config" "$DATA/app/files" "$DATA/gnupg"
+
+# Config/core.php loads dirname(__DIR__)/Vendor/autoload.php, and PHP resolves
+# __DIR__ through the symlink, so point $DATA/app/Vendor back at the image.
+ln -sfn /var/www/MISP/app/Vendor "$DATA/app/Vendor"
 
 link() {
     local src="$1" dst="$2"
@@ -16,9 +20,9 @@ link() {
     fi
     ln -s "$dst" "$src"
 }
-link /var/www/MISP/app/Config "$DATA/config"   # config.php (salt, settings), database.php, ...
-link /var/www/MISP/app/files  "$DATA/files"    # attachments, galaxies, taxonomies, feeds ...
-link /var/www/MISP/.gnupg     "$DATA/gnupg"    # instance GPG key
+link /var/www/MISP/app/Config "$DATA/app/Config"  # config.php (salt, settings), database.php, ...
+link /var/www/MISP/app/files  "$DATA/app/files"   # attachments, galaxies, taxonomies, feeds ...
+link /var/www/MISP/.gnupg     "$DATA/gnupg"       # instance GPG key
 
 # supervisord's local control port (127.0.0.1 only) gets a fresh password on
 # every start instead of upstream's fixed default; MISP is told the same value.
